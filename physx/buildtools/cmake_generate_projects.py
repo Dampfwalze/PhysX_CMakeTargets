@@ -19,7 +19,8 @@ def cmakeExt():
     return ''
 
 
-def filterPreset(presetName):
+def filterPreset(presetName: str):
+    presetName = os.path.basename(presetName)
     winPresetFilter = ['win','uwp','ps4','switch','xboxone','android','crosscompile','xboxseriesx']
     if sys.platform == 'win32':        
         if any(presetName.find(elem) != -1 for elem in winPresetFilter):
@@ -71,16 +72,20 @@ class CMakePreset:
     cmakeParams = []
 
     def __init__(self, presetName):
-        xmlPath = "buildtools/presets/"+presetName+'.xml'
-        if os.path.isfile(xmlPath):
+        if(os.path.isfile(presetName)):
+            xmlPath = presetName
             print('Using preset xml: '+xmlPath)
         else:
-            xmlPath = "buildtools/presets/public/"+presetName+'.xml'
+            xmlPath = "buildtools/presets/"+presetName+'.xml'
             if os.path.isfile(xmlPath):
                 print('Using preset xml: '+xmlPath)
             else:
-                print('Preset xml file: '+xmlPath+' not found')
-                exit()
+                xmlPath = "buildtools/presets/public/"+presetName+'.xml'
+                if os.path.isfile(xmlPath):
+                    print('Using preset xml: '+xmlPath)
+                else:
+                    print('Preset xml file: '+xmlPath+' not found')
+                    exit()
 
         # get the xml
         presetNode = xml.etree.ElementTree.parse(xmlPath).getroot()
