@@ -88,6 +88,7 @@ TARGET_INCLUDE_DIRECTORIES(SampleFramework
 	PUBLIC ${SAMPLEFRAMEWORK_DIR}/platform/include
 
 	PRIVATE ${PHYSX_ROOT_DIR}/include
+	PRIVATE ${CMAKE_BINARY_DIR}/include
 	PRIVATE ${PHYSX_ROOT_DIR}/source/common/src
 	
 	PRIVATE ${PHYSX_ROOT_DIR}/source/fastxml/include

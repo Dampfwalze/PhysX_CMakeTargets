@@ -130,7 +130,7 @@ SET(HEADER_CONTENT "")
 INCLUDE(${PHYSX_ROOT_DIR}/${PROJECT_CMAKE_FILES_DIR}/${TARGET_BUILD_PLATFORM}/CMakeLists.txt)
 
 # generate PxPhysXConfig.h header that will contain PhysX configuration defines like PX_PHYSX_STATIC_LIB
-CONFIGURE_FILE(${CMAKE_MODULE_PATH}/template/PxIncludeTemplate.h ${PHYSX_ROOT_DIR}/include/PxConfig.h)
+CONFIGURE_FILE(${CMAKE_MODULE_PATH}/template/PxIncludeTemplate.h ${CMAKE_BINARY_DIR}/include/PxConfig.h)
 
 IF(PX_GENERATE_SOURCE_DISTRO)
 	FOREACH(FILE_NAME ${SOURCE_DISTRO_FILE_LIST})

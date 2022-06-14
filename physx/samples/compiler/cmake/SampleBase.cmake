@@ -116,6 +116,7 @@ ADD_LIBRARY(SampleBase STATIC
 TARGET_INCLUDE_DIRECTORIES(SampleBase
 
 	PRIVATE ${PHYSX_ROOT_DIR}/include
+	PRIVATE ${CMAKE_BINARY_DIR}/include
 	PRIVATE ${PHYSX_ROOT_DIR}/source/common/src
 	
 	PRIVATE ${PHYSX_ROOT_DIR}/samples/sampleframework/framework/include
