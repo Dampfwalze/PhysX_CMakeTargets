@@ -56,9 +56,9 @@ def noPresetProvided():
             counter = counter + 1            
     # Fix Python 2.x.
     try: 
-    	input = raw_input
+        input = raw_input
     except NameError: 
-    	pass    
+        pass
     mode = int(input('Enter preset number: '))
     print('Running generate_projects.bat ' + presetList[mode])
     return presetList[mode]
@@ -157,6 +157,8 @@ class CMakePreset:
             outString = outString + '-G \"Visual Studio 15 2017\"'
         elif self.compiler == 'vc16':
             outString = outString + '-G \"Visual Studio 16 2019\"'
+        elif self.compiler == 'vc17':
+            outString = outString + '-G \"Visual Studio 17 2022\"'
         elif self.compiler == 'xcode':
             outString = outString + '-G Xcode'
         elif self.targetPlatform == 'android':
