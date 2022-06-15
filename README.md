@@ -1,3 +1,58 @@
+# PhysX_CMaketargets
+
+This is a fork of NVIDIA PhysX SDK with added CMake targets.
+
+**Only tested on Windows**
+
+## Features
+
+After cloning, PhysX can be included with either
+```cmake
+find_package(PhysX REQUIRED PATHS <path_to_physx_root>)
+```
+or
+```cmake
+include(<path_to_physx_root>/PhysXConfig.cmake)
+```
+
+This will specify all PhysX targets contained in a "PhysX" namespace. To link them, use:
+```cmake
+target_link_libraries(<target> PhysX::PhysX PhysX::Common PhysX::Foundation ...)
+```
+
+PhysX will be configured at your projects configure time and build at your projects build time. PhysX will be build on demand. When the neccessary binaries allready exists, PhysX will not be rebuild.
+
+## Targets
+- PhysX::PhysX
+- PhysX::Common
+- PhysX::Foundation
+- PhysX::Extensions
+- PhysX::Task
+- PhysX::Vihicle
+- PhysX::Cooking
+- PhysX::CharacterKinematic
+- PhysX::PvdSDK
+
+Minimal selection might be:
+```cmake
+target_link_libraries(<target> PhysX::PhysX PhysX::Common PhysX::Foundation PhysX::Extensions)
+```
+
+## Options
+
+| Option | Explanation |
+|---|---|
+| PHYSX_PRESET | Either one of the presets defined by PhysX at <PhysX_root>/physx/buildtools/presets/public, specified with its filename without extension or a user defined preset, specified with its path. Default is "vc17win64"
+| PHYSX_CONFIG | The compile configuration to use. debug, checked, profile and release can be used Default is "checked". **Must be specified at configure time**
+| PHYSX_BUILD_PARALLEL_LEVEL | The parallel level that will be passed to the PhysX build step. Valid format: [-j or --parallel] <Number>
+| PYTHON_COMMAND | Where to find python, default is "python"
+
+## Dependencies
+
+- Python 2.7.6 or higher
+- CMake
+- MSVC (VS 2022 is supported)
+
 # NVIDIA PhysX SDK 4.1
 
 Copyright (c) 2021 NVIDIA Corporation. All rights reserved.
