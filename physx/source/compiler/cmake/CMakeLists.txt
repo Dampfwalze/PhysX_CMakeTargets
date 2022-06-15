@@ -149,3 +149,6 @@ ADD_CUSTOM_COMMAND(
 	COMMAND ${CMAKE_COMMAND} -E copy
 			${CMAKE_BINARY_DIR}/targets.cmake
 			$<TARGET_FILE_DIR:PhysX>)
+
+			
+CONFIGURE_FILE(${CMAKE_MODULE_PATH}/template/cached.cmake ${CMAKE_BINARY_DIR}/cached.cmake)
