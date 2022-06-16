@@ -19,7 +19,11 @@ def main():
                 exit(-1)
     
     presetNode = xml.etree.ElementTree.parse(xmlPath).getroot()
+
+    for platform in presetNode.findall('platform'):
+        targetPlatform = platform.attrib['targetPlatform']
     
-    print(presetNode.attrib['name'], end="")
+    print(presetNode.attrib['name'], end=";")
+    print(targetPlatform, end="")
 
 main()

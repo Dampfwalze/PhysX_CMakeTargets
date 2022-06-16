@@ -1,8 +1,8 @@
 # PhysX_CMaketargets
 
-This is a fork of NVIDIA PhysX SDK with added CMake targets.
+This is a fork of the NVIDIA PhysX SDK with added CMake targets.
 
-**Only tested on Windows**
+**Only tested on Windows and WSL**
 
 ## Features
 
@@ -20,7 +20,7 @@ This will specify all PhysX targets contained in a "PhysX" namespace. To link th
 target_link_libraries(<target> PhysX::PhysX PhysX::Common PhysX::Foundation ...)
 ```
 
-PhysX will be configured at your projects configure time and build at your projects build time. PhysX will be build on demand. When the neccessary binaries allready exists, PhysX will not be rebuild.
+PhysX will be configured at your projects configure time and built at your projects build time. PhysX will be built on demand. When the necessary binaries already exist, PhysX will not be rebuilt.
 
 ## Targets
 - PhysX::PhysX
@@ -28,14 +28,41 @@ PhysX will be configured at your projects configure time and build at your proje
 - PhysX::Foundation
 - PhysX::Extensions
 - PhysX::Task
-- PhysX::Vihicle
+- PhysX::Vehicle
 - PhysX::Cooking
 - PhysX::CharacterKinematic
 - PhysX::PvdSDK
 
-Minimal selection might be:
+The link order should be according to this dependency graph, meaning `PhysX::Extensions` is always linked first and `PhysX::Foundation` is always linked last:
+
+```mermaid
+flowchart TD
+    physx{{PhysX::PhysX}}
+    extensions{{PhysX::Extensions}}
+    vehicle{{PhysX::Vehicle}}
+    cooking{{PhysX::Cooking}}
+    char_kin{{PhysX::CharacterKinematic}}
+    pvd{{PhysX::PvdSDK}}
+    common{{PhysX::Common}}
+    foundation{{Physx::Foundation}}
+    extensions --> physx
+    vehicle -.-> pvd
+    extensions -.-> pvd
+    physx --> common
+    physx -.-> pvd
+    cooking --> common
+    common --> foundation
+    cooking --> foundation
+    pvd --> foundation
+    vehicle --> foundation
+    char_kin --> foundation
+    extensions --> foundation
+    physx --> foundation
+```
+
+A minimal selection might be:
 ```cmake
-target_link_libraries(<target> PhysX::PhysX PhysX::Common PhysX::Foundation PhysX::Extensions)
+target_link_libraries(<target> PhysX::Extensions PhysX::PhysX PhysX::Common PhysX::Foundation)
 ```
 
 ## Options
